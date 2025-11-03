@@ -10,6 +10,7 @@ on:
   push:
     branches-ignore:
       - '!master'
+  workflow_dispatch:
 
 jobs:
   allure:
@@ -27,8 +28,9 @@ jobs:
           path: gh-pages
 
       - name: Allure Report action from repo
-        uses: ./
+        uses: zohaibterminator/allure-report-action@1.7
         with:
+          working_subdir: ${{ github.workflow }}/run-${{ github/run_number }}_${{ github.run_attempt }}
           allure_results: allure-results
           allure_history: allure-history
           keep_reports: 20
